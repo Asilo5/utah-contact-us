@@ -8,9 +8,17 @@ const App = () => {
   const [email, setEmail] = React.useState('');
   const [birthdate, setBirthdate] = React.useState('');
   const [subscribe, setSubscribe] = React.useState(false);
+  const [disable, setDisable] = React.useState(true);
+  const [emailError, setEmailError] = React.useState('');
 
   let handleClick = () => {
     setSubscribe(!subscribe);
+  }
+
+  let emailConfirmation = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+  let submitState = () => {
+   
   }
 
   return (
@@ -18,20 +26,25 @@ const App = () => {
         <h1>Contact Form</h1>
         <form>
           <section>
-            <label>Name</label>
-            <input type='text'
-                   name='name'
-                   value={name}
-                   onChange={(e) => setName(e.target.value)}
-            />
+            <div>
+              <label>Name</label>
+              <input type='text'
+                    name='name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+              />
+            </div>
           </section>
+           
           <section>
-            <label>Email</label>
-            <input type='email'
-                   name='email'
-                   value={email}
-                   onChange={(e) => setEmail(e.target.value)}
-            />
+            <div>
+              <label>Email</label>
+              <input type='email'
+                    name='email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
           </section>
           <section>
             <label>BirthDate</label>
@@ -42,14 +55,23 @@ const App = () => {
             />
           </section>
           <section>
-            <label>Would you like to subscribe your email?</label>
-            <input type='checkbox'
-                   checked={subscribe}
-                   onClick={handleClick}
-            />
+            <div>
+              <label>Would you like to subscribe your email?</label>
+              <input type='checkbox'
+                    checked={subscribe}
+                    onChange={handleClick}
+              />
+            </div>
           </section>
         </form>
-        <button>Submit</button>
+        {!emailConfirmation.test(email) || name < 5 || subscribe === false ?
+        <div>
+          <p>Please make sure name, email, and subscribtion are all filled and checked!</p> 
+          <button disabled={disable}> Submit </button>
+        </div>
+         :
+         <button onClick={submitState}> Submit </button>
+      }
     </section>
   )
 }
