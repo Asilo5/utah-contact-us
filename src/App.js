@@ -1,23 +1,33 @@
 import React from 'react';
 import './App.css';
 
-import Name from './Components/Name';
-import Email from './Components/Email';
-import BirthDate from './Components/BirthDate';
-import Button from './Components/Button';
+import { sendUserInfo } from './apiCalls';
+
 
 const App = () => {
 
   return (
-    <section>
+    <section className='contact_form'>
         <h1>Contact Form</h1>
         <form>
-           <Name />
-           <Email />
-           <BirthDate />
-           <Button />
+          <section>
+            <label>Name</label>
+            <input type='text'/>
+          </section>
+          <section>
+            <label>Email</label>
+            <input type='email'/>
+          </section>
+          <section>
+            <label>BirthDate</label>
+            <input type='date'/>
+          </section>
+          <section>
+            <label>Would you like to subscribe your email?</label>
+            <input type='radio'/>
+          </section>
         </form>
-        {/* add aggrement to be contacted must be checked to make button work */}
+        <button>Submit</button>
     </section>
   )
 }
