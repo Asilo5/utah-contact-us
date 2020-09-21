@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import { sendUserInfo } from './apiCalls';
+
+
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <section className='contact_form'>
+        <h1>Contact Form</h1>
+        <form>
+          <section>
+            <label>Name</label>
+            <input type='text'/>
+          </section>
+          <section>
+            <label>Email</label>
+            <input type='email'/>
+          </section>
+          <section>
+            <label>BirthDate</label>
+            <input type='date'/>
+          </section>
+          <section>
+            <label>Would you like to subscribe your email?</label>
+            <input type='radio'/>
+          </section>
+        </form>
+        <button>Submit</button>
+    </section>
+  )
 }
 
 export default App;
