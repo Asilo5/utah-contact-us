@@ -14,10 +14,18 @@ const App = () => {
     setSubscribe(!subscribe);
   }
 
+  let clearState = () => {
+    setName('');
+    setEmail('');
+    setBirthdate('');
+    setSubscribe(false);
+  }
+
   let emailConfirmation = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
   let submitState = (e) => {
     e.preventDefault();
+
     let userObj = {
       name,
       email,
@@ -26,6 +34,7 @@ const App = () => {
     }
     sendUserInfo(userObj);
     setSentPost('Submitted! Thank you =)');
+    
   }
 
   return (
@@ -83,6 +92,7 @@ const App = () => {
               <button onClick={submitState}> Submit </button>
           </div>
         }
+        <button onClick={clearState} className='clear'>Clear Form</button>
         </form>
     </section>
   )
