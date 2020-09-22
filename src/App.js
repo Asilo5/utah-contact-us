@@ -16,7 +16,8 @@ const App = () => {
 
   let emailConfirmation = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
-  let submitState = () => {
+  let submitState = (e) => {
+    e.preventDefault();
     let userObj = {
       name,
       email,
@@ -24,7 +25,7 @@ const App = () => {
       subscribe
     }
     sendUserInfo(userObj);
-    setSentPost('Thank you!');
+    setSentPost('Submitted! Thank you =)');
   }
 
   return (
@@ -32,7 +33,7 @@ const App = () => {
         <h1>Contact Form</h1>
         <form>
           <section>
-            <div>
+            <div className='inputs'>
               <label>Name</label>
               <input type='text'
                     name='name'
@@ -43,7 +44,7 @@ const App = () => {
           </section>
            
           <section>
-            <div>
+            <div className='inputs'>
               <label>Email</label>
               <input type='email'
                     name='email'
@@ -52,7 +53,8 @@ const App = () => {
               />
             </div>
           </section>
-          <section>
+
+          <section className='inputs'>
             <label>BirthDate</label>
             <input type='date'
                    name='birthdate'
@@ -60,8 +62,9 @@ const App = () => {
                    onChange={(e) => setBirthdate(e.target.value)}
             />
           </section>
+          
           <section>
-            <div>
+            <div className='checkbox'>
               <label>Would you like to subscribe your email?</label>
               <input type='checkbox'
                     checked={subscribe}
@@ -69,18 +72,18 @@ const App = () => {
               />
             </div>
           </section>
+          {!emailConfirmation.test(email) || name.length === '' || subscribe === false ?
+          <div className='inputs error_handling'>
+            <p>Please make sure name, email, and subscribtion are all filled and checked!</p> 
+            <button disabled={true} className='disabled'> Submit </button>
+          </div>
+          :
+          <div className='inputs'>
+            <p className='submitted_text'>{sentPost}</p>
+              <button onClick={submitState}> Submit </button>
+          </div>
+        }
         </form>
-        {!emailConfirmation.test(email) || name.length === '' || subscribe === false ?
-        <div>
-          <p>Please make sure name, email, and subscribtion are all filled and checked!</p> 
-          <button disabled={true}> Submit </button>
-        </div>
-         :
-         <div>
-           <p>{sentPost}</p>
-            <button onClick={submitState}> Submit </button>
-         </div>
-      }
     </section>
   )
 }
