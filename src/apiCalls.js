@@ -1,9 +1,10 @@
 export const sendUserInfo = async (userObj) => {
+
    let userInfo = {
-    // "name": "Test User",
-    // "email": "Post 1",
-    // "birthDate": "2000-01-01",
-    // "emailConsent": true
+    "name": userObj.name,
+    "email": userObj.email,
+    "birthDate": userObj.birthDate,
+    "emailConsent": userObj.subscribe
    }
 
   const resp = await fetch('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users', {
@@ -15,11 +16,11 @@ export const sendUserInfo = async (userObj) => {
   });
 
   const data = await resp.json();
-
-      if (!resp.ok) {
-        const error = await resp.json();
-        throw new Error(error.message);
-      }
+  
+    if (!resp.ok) {
+    const error = await resp.json();
+    throw new Error(error.message);
+    }
 
   return data;
 };
