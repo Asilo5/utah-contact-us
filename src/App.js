@@ -8,8 +8,7 @@ const App = () => {
   const [email, setEmail] = React.useState('');
   const [birthdate, setBirthdate] = React.useState('');
   const [subscribe, setSubscribe] = React.useState(false);
-  const [disable, setDisable] = React.useState(true);
-  const [emailError, setEmailError] = React.useState('');
+  const [sentPost, setSentPost] = React.useState('');
 
   let handleClick = () => {
     setSubscribe(!subscribe);
@@ -18,7 +17,14 @@ const App = () => {
   let emailConfirmation = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
   let submitState = () => {
-   
+    let userObj = {
+      name,
+      email,
+      birthdate,
+      subscribe
+    }
+    sendUserInfo(userObj);
+    setSentPost('Thank you!');
   }
 
   return (
@@ -64,13 +70,16 @@ const App = () => {
             </div>
           </section>
         </form>
-        {!emailConfirmation.test(email) || name < 5 || subscribe === false ?
+        {!emailConfirmation.test(email) || name.length === '' || subscribe === false ?
         <div>
           <p>Please make sure name, email, and subscribtion are all filled and checked!</p> 
-          <button disabled={disable}> Submit </button>
+          <button disabled={true}> Submit </button>
         </div>
          :
-         <button onClick={submitState}> Submit </button>
+         <div>
+           <p>{sentPost}</p>
+            <button onClick={submitState}> Submit </button>
+         </div>
       }
     </section>
   )
